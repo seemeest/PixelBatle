@@ -1,0 +1,113 @@
+img {
+    cursor: pointer;
+}
+
+.white {
+    background-color: #FFFFFF;
+}
+
+.grey1 {
+    background-color: #C2C2C2;
+}
+
+.grey2 {
+    background-color: #858585;
+}
+
+.black1 {
+    background-color: #474747;
+}
+
+.black2 {
+    background-color: #000000;
+}
+
+.green1 {
+    background-color: #94DF44;
+}
+
+.green2 {
+    background-color: #4BB34B;
+}
+
+.green3 {
+    background-color: #5CBF0E;
+}
+
+.yelow1 {
+    background-color: #FDCA5E;
+}
+
+.yelow2 {
+    background-color: #FFA75F;
+}
+
+.yelow3 {
+    background-color: #FF9F00;
+}
+
+.red1 {
+    background-color: #FF717D;
+}
+
+.red2 {
+    background-color: #FE3347;
+}
+
+.red3 {
+    background-color: #DB2635;
+}
+
+.violet1 {
+    background-color: #CD3EE6;
+}
+
+.violet2 {
+    background-color: #A329B8;
+}
+
+.blue1 {
+    background-color: #70B5F6;
+}
+
+.blue2 {
+    background-color: #488DD0;
+}
+
+.blue3 {
+    background-color: #1893E1;
+}
+
+.color {
+    width: 50px;
+    height: 50px;
+    border: 2px ridge aqua;
+}
+
+.colors {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    background-color: #474747;
+}
+
+img {
+    background: #fff;
+    object-fit: cover;
+    cursor: crosshair;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+body {
+    background: grey;
+}
+
+#canvas {
+    background: #fff;
+    margin: 20px;
+}
