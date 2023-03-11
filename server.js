@@ -105,7 +105,7 @@ function drawCanvas(i, j, c) {
         case 3:
             ctx.fillStyle = '#474747';
 
-            ctx.fillRect(i, j, i + gridSize, j + gridSize);
+            ctx.fillRect((i * gridSize) + 1, (j * gridSize) + 1, gridSize - 1, gridSize - 1);
 
             break
         case 4:
