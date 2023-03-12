@@ -7,6 +7,7 @@ const { match } = require('assert');
 const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
+const mysql = require("mysql2");
 
 const PORT = 5000
 app.set('port', PORT);
@@ -27,10 +28,26 @@ canvas.width = 2600;
 canvas.height = 1600;
 var gridSize = 10
 
+const tabelName = "users"
+const connection = mysql.createConnection({
+    host: "127.0.0.1",
+    user: "root",
+    database: "PixelBattle",
+    password: "",
+    port: "3306"
+});
+connection.connect(function(err) {
+    if (err) {
+        return console.error("Ошибка: " + err.message);
+    } else {
+        console.log("Подключение к серверу MySQL успешно установлено");
+    }
+});
 
 var pizic = 0.5
 
 const ip = "192.168.1.130"
+var user = {};
 server.listen(PORT, ip, function() {
 
     drawBoard();
@@ -39,17 +56,43 @@ server.listen(PORT, ip, function() {
 app.get('/', function(request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
-var players = {};
+
+app.get('/login', function(request, response) {
+    response.sendFile(path.join(__dirname, 'login.html'));
+});
+// создаем парсер для данных application/x-www-form-urlencoded
+const urlencodedParser = express.urlencoded({ extended: false });
+
+app.post('/login', urlencodedParser, function(request, response) {
+    if (!request.body) return response.sendStatus(400);
+    console.log(request.body);
+    response.send(`${request.body.user} - ${request.body.password}`);
+})
+
 io.on('connection', function(socket) {
     socket.on('new player', function() {
-        players[socket.id] = {
-            x: 0,
-            y: 0,
+        user[socket.id] = {
+            auth: false
         };
+        // socket.end(response.sendFile(path.join(__dirname, 'index.html')))
         console.log("New connection ", socket.handshake.address)
 
-        io.sockets.emit('state', players, canvas.toDataURL());
+        io.sockets.emit('state', user, canvas.toDataURL());
     });
+    socket.on("entrance", function(login, password) {
+        if (login == "") return;
+        if (password == "") return;
+        const zapros = `INSERT INTO \`users\` ( \`login\`, \`pasworld\`, \`setPixels\`) VALUES ('${login}','${password}', '${0}')`
+
+        connection.query(zapros, function(err, results) {
+            if (err) console.log(err);
+            else {
+
+            }
+            console.log(results);
+        });
+
+    })
     socket.on('ckick', function(i, j, c) {
 
         console.log("ckick", socket.handshake.address)
@@ -61,22 +104,9 @@ io.on('connection', function(socket) {
     })
 
     socket.on("disconnect", function() {
-        delete players[socket.id]
+        delete user[socket.id]
     })
 });
-
-
-
-// document.getElementById("Iimg").onclick = function(e) {
-
-//     var rect = e.target.getBoundingClientRect();
-//     mouse.x = e.clientX - rect.left;
-//     mouse.y = e.clientY - rect.top;
-
-//     mouse.x = Math.floor(mouse.x / gridSize)
-//     mouse.y = Math.floor(mouse.y / gridSize)
-
-// }
 
 function drawCanvas(i, j, c) {
 
@@ -216,10 +246,6 @@ function drawBoard() {
     }
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "#625C5C";
     ctx.stroke();
 }
-
-
-
-// drawBoard();

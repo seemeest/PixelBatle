@@ -1,11 +1,6 @@
 var socket = io();
 
-var movement = {
-    up: false,
-    down: false,
-    left: false,
-    right: false
-}
+
 socket.emit('new player');
 var mouse = { x: 0, y: 0 };
 var color = 4;
