@@ -39,7 +39,9 @@ document.getElementById("Iimg").onclick = function(e) {
 }
 
 
+function Write() { document.getElementById("colors").style.visibility = "visible" }
 
+function Hidden() { document.getElementById("colors").style.visibility = "hidden" }
 
 function Colorwhite() { color = 0 }
 

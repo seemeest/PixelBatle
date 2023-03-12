@@ -46,7 +46,7 @@ connection.connect(function(err) {
 
 var pizic = 0.5
 
-const ip = "192.168.1.130"
+const ip = "192.168.0.109"
 var user = {};
 server.listen(PORT, ip, function() {
 
